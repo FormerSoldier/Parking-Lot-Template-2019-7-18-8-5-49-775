@@ -11,4 +11,7 @@ public interface ParkingLotRepository extends JpaRepository<ParkingLot, Integer>
 
     @Query(value = "SELECT * FROM parking_lot Limit :start, :count", nativeQuery = true)
     List<ParkingLot> getParkingLotsLimit(@Param("start") int start, @Param("count") int count);
+
+    @Query(value="UPDATE parking_lot SET capacity = :capacity WHERE id = :id")
+    int updateParkingLotCapacityByParkingLotId(@Param("capacity") int capacity, @Param("id") int parkingLotId);
 }

@@ -33,4 +33,8 @@ public class ParkingLotService {
     public ParkingLot getParkingLotByParkingLotId(Integer id) {
         return parkingLotRepository.findById(id).get();
     }
+
+    public int updateParkingLotCapacityByParkingLotId(int parkingLotId, int capacity){
+        return parkingLotRepository.updateParkingLotCapacityByParkingLotId(parkingLotId,capacity);
+    }
 }
