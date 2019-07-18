@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ParkingLotRepository extends JpaRepository<ParkingLot, Integer> {
 
-    @Query(value = "SELECT * FROM parkinglot Limit CONCAT('%',:start,'%'), CONCAT('%',:end,'%')", nativeQuery = true)
-    List<ParkingLot> getParkingLotsLimit(@Param("start") int start, @Param("end") int end);
+    @Query(value = "SELECT * FROM parking_lot Limit :start, :count", nativeQuery = true)
+    List<ParkingLot> getParkingLotsLimit(@Param("start") int start, @Param("count") int count);
 }

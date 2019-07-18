@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(basePackages = {"com.thoughtworks.parking_lot.service"})
+@ComponentScan(basePackages = {"com.thoughtworks.parking_lot.service","com.thoughtworks.parking_lot.controller"})
 @SpringBootApplication
 public class ParkingLotApplication {
 

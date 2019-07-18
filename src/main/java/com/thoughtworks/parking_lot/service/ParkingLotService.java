@@ -26,7 +26,7 @@ public class ParkingLotService {
     }
 
 
-    public List<ParkingLot> getParkingLotsLimit(int start, int end) {
-        return parkingLotRepository.getParkingLotsLimit(start, end);
+    public List<ParkingLot> getParkingLotsLimit(int page, int pageSize) {
+        return parkingLotRepository.getParkingLotsLimit(page * pageSize, pageSize);
     }
 }

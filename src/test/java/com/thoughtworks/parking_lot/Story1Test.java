@@ -1,9 +1,12 @@
 package com.thoughtworks.parking_lot;
 
 import com.thoughtworks.parking_lot.model.ParkingLot;
+import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
 import com.thoughtworks.parking_lot.service.ParkingLotService;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -46,6 +49,6 @@ public class Story1Test {
         List<ParkingLot> parkingLots = parkingLotService.getParkingLotsLimit(0,15);
 
         Assertions.assertEquals(parkingLots.size(),15);
-
     }
+
 }
