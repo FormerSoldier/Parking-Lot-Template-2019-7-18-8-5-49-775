@@ -14,12 +14,17 @@ public class ParkingLotController {
     @Autowired
     ParkingLotService parkingLotService;
 
+    @GetMapping
+    public List<ParkingLot> getAllParkingLots(){
+        return parkingLotService.listAllParkingLots();
+    }
+
     @PostMapping
     public ParkingLot addParkingLot(@RequestBody ParkingLot parkingLot){
         return parkingLotService.saveParkingLot(parkingLot);
     }
-    @GetMapping
-    public String get(){
-        return "success";
+    @DeleteMapping("/{parkingLotId}")
+    public void deleteParkingById(@PathVariable int parkingLotId){
+        parkingLotService.deleteParkingLotById(parkingLotId);
     }
 }

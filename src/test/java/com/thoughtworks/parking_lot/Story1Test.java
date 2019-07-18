@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -25,5 +27,15 @@ public class Story1Test {
         parkingLot = parkingLotService.saveParkingLot(parkingLot);
 
         Assertions.assertNotNull(parkingLot.getId());
+    }
+
+    @Test
+    public void call_delete_parking_lot_by_id(){
+        ParkingLot parkingLot = new ParkingLot("1号停车场",200,"波兰街十三号");
+        parkingLot = parkingLotService.saveParkingLot(parkingLot);
+
+        parkingLotService.deleteParkingLotById(parkingLot.getId());
+        List<ParkingLot> parkingLotList = parkingLotService.listAllParkingLots();
+        Assertions.assertEquals(parkingLotList.size(),0);
     }
 }
