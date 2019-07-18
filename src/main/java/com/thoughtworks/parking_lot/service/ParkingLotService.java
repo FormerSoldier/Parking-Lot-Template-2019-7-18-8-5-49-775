@@ -1,6 +1,6 @@
 package com.thoughtworks.parking_lot.service;
 
-import com.thoughtworks.parking_lot.API.ParkingLotRepository;
+import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
 import com.thoughtworks.parking_lot.model.ParkingLot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +23,10 @@ public class ParkingLotService {
 
     public void deleteParkingLotById(Integer id) {
         parkingLotRepository.deleteById(id);
+    }
+
+
+    public List<ParkingLot> getParkingLotsLimit(int start, int end) {
+        return parkingLotRepository.getParkingLotsLimit(start, end);
     }
 }

@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -37,5 +36,16 @@ public class Story1Test {
         parkingLotService.deleteParkingLotById(parkingLot.getId());
         List<ParkingLot> parkingLotList = parkingLotService.listAllParkingLots();
         Assertions.assertEquals(parkingLotList.size(),0);
+    }
+
+    @Test
+    public void should_return_fifteen_ParkingLots_when_call_getParkingLotsLimit_given_fifteen(){
+        for(int i = 0; i < 20; i++){
+            parkingLotService.saveParkingLot(new ParkingLot(String.format("%d号停车场",i),i*45,String.format("钵兰街第%d号",i)));
+        }
+        List<ParkingLot> parkingLots = parkingLotService.getParkingLotsLimit(0,15);
+
+        Assertions.assertEquals(parkingLots.size(),15);
+
     }
 }
