@@ -51,4 +51,12 @@ public class Story1Test {
         Assertions.assertEquals(parkingLots.size(),15);
     }
 
+    @Test
+    public void should_return_parking_lot_when_call_get_parking_lot_by_parking_lot_id_given_parking_lot_id(){
+        ParkingLot result_parkingLot = parkingLotService.saveParkingLot(new ParkingLot("44号停车场",440,"波兰街44号"));
+        ParkingLot parkingLot = parkingLotService.getParkingLotByParkingLotId(result_parkingLot.getId());
+
+        Assertions.assertNotNull(parkingLot);
+
+    }
 }

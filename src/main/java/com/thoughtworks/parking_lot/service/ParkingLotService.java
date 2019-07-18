@@ -29,4 +29,8 @@ public class ParkingLotService {
     public List<ParkingLot> getParkingLotsLimit(int page, int pageSize) {
         return parkingLotRepository.getParkingLotsLimit(page * pageSize, pageSize);
     }
+
+    public ParkingLot getParkingLotByParkingLotId(Integer id) {
+        return parkingLotRepository.findById(id).get();
+    }
 }

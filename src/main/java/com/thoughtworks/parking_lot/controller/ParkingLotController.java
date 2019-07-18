@@ -25,6 +25,12 @@ public class ParkingLotController {
         return parkingLotService.getParkingLotsLimit(page,pageSize);
     }
 
+    @GetMapping("/{parkingLotId}")
+    public ParkingLot getParkingLotById(@PathVariable int parkingLotId){
+        return parkingLotService.getParkingLotByParkingLotId(parkingLotId);
+    }
+
+
     @PostMapping
     public ParkingLot addParkingLot(@RequestBody ParkingLot parkingLot){
         return parkingLotService.saveParkingLot(parkingLot);
@@ -33,4 +39,6 @@ public class ParkingLotController {
     public void deleteParkingById(@PathVariable int parkingLotId){
         parkingLotService.deleteParkingLotById(parkingLotId);
     }
+
+
 }
