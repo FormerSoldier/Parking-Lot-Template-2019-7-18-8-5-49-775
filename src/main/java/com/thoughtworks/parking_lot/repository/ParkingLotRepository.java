@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ParkingLotRepository extends JpaRepository<ParkingLot, String> {
+public interface ParkingLotRepository extends JpaRepository<ParkingLot, Integer> {
 
     @Query(value = "SELECT * FROM parking_lot Limit :start, :count", nativeQuery = true)
     List<ParkingLot> getParkingLotsLimit(@Param("start") int start, @Param("count") int count);

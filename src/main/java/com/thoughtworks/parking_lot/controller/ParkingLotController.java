@@ -21,13 +21,13 @@ public class ParkingLotController {
     }
 
     @GetMapping(params = {"page", "pageSize"})
-    public List<ParkingLot> getParkingLotsLimt(int page, int pageSize){
+    public List<ParkingLot> getParkingLotsLimit(int page, int pageSize){
         return parkingLotService.getParkingLotsLimit(page,pageSize);
     }
 
     @GetMapping("/{parkingLotId}")
-    public ParkingLot getParkingLotById(@PathVariable String parkingLotName){
-        return parkingLotService.getParkingLotByParkingLotId(parkingLotName);
+    public ParkingLot getParkingLotById(@PathVariable int parkingLotId){
+        return parkingLotService.getParkingLotByParkingLotId(parkingLotId);
     }
 
 
@@ -36,13 +36,13 @@ public class ParkingLotController {
         return parkingLotService.saveParkingLot(parkingLot);
     }
     @DeleteMapping("/{parkingLotId}")
-    public void deleteParkingById(@PathVariable String parkingLotName){
-        parkingLotService.deleteParkingLotById(parkingLotName);
+    public void deleteParkingById(@PathVariable int parkingLotId){
+        parkingLotService.deleteParkingLotById(parkingLotId);
     }
 
     @PutMapping("/{id}/capacity/{capacity}")
-    public ParkingLot updateParkingLotCapacity(@PathVariable String parkingLotName,@PathVariable Integer capacity){
-        return parkingLotService.updateParkingLot(parkingLotName, capacity);
+    public ParkingLot updateParkingLotCapacity(@PathVariable("id") int parkingLotId,@PathVariable Integer capacity){
+        return parkingLotService.updateParkingLot(parkingLotId, capacity);
     }
 
 }

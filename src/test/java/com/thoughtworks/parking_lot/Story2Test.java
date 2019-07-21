@@ -30,7 +30,7 @@ public class Story2Test {
         ParkingLotOrder parkingLotOrder = new ParkingLotOrder();
         String plateNumber = "粤B 132";
         Car car = new Car(plateNumber);
-        ParkingLotOrderDTO orderDTO = parkingLotOrderService.addOrder(parkingLot.getName(),car);
+        ParkingLotOrderDTO orderDTO = parkingLotOrderService.addOrder(parkingLot.getId(),car);
 
         Assertions.assertNull(  orderDTO.getMessage());
     }
@@ -41,10 +41,10 @@ public class Story2Test {
         String plateNumber = "粤B 123";
         Car car  = new Car(plateNumber);
 
-        parkingLotService.saveParkingLot(new ParkingLot(parkingLotName,400,"钵兰街13号"));
-        parkingLotOrderService.addOrder(parkingLotName,car).getParkingLotOrder();
+        ParkingLot parkingLot = parkingLotService.saveParkingLot(new ParkingLot(parkingLotName,400,"钵兰街13号"));
+        parkingLotOrderService.addOrder(parkingLot.getId(),car).getParkingLotOrder();
 
-        int size= parkingLotService.fetch(parkingLotName, plateNumber);
+        int size= parkingLotService.fetch(parkingLot.getId(), plateNumber);
 
         Assertions.assertEquals(size,1);
     }
@@ -55,8 +55,8 @@ public class Story2Test {
         String plateNumber = "粤B 123";
         Car car  = new Car(plateNumber);
 
-        parkingLotService.saveParkingLot(new ParkingLot(parkingLotName,0,"钵兰街13号"));
-        ParkingLotOrderDTO parkingLotOrderDTO = parkingLotService.park(parkingLotName,car);
+        ParkingLot parkingLot = parkingLotService.saveParkingLot(new ParkingLot(parkingLotName,0,"钵兰街13号"));
+        ParkingLotOrderDTO parkingLotOrderDTO = parkingLotService.park(parkingLot.getId(),car);
 
         Assertions.assertEquals("停车场已经满了",parkingLotOrderDTO.getMessage());
     }
@@ -65,7 +65,7 @@ public class Story2Test {
     @Test
     public void should_return_400_when_call_get_invalid_capacity_pariking_lot_id_given_parking_lot_id(){
         ParkingLot parkingLot = parkingLotService.saveParkingLot(new ParkingLot("1号停车场",400,"钵兰街13号"));
-        int invalidCapacity = parkingLotService.getValidCapacityByParkingLotId(parkingLot.getName());
+        int invalidCapacity = parkingLotService.getValidCapacityByParkingLotId(parkingLot.getId());
 
         Assertions.assertEquals(400,invalidCapacity);
 

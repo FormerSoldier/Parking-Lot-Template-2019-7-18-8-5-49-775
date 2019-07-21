@@ -30,8 +30,8 @@ public class ParkingLotService {
         return parkingLotRepository.findAll();
     }
 
-    public void deleteParkingLotById(String parkingLotName) {
-        parkingLotRepository.deleteById(parkingLotName);
+    public void deleteParkingLotById(int parkingLotId) {
+        parkingLotRepository.deleteById(parkingLotId);
     }
 
 
@@ -39,30 +39,34 @@ public class ParkingLotService {
         return parkingLotRepository.getParkingLotsLimit(page * pageSize, pageSize);
     }
 
-    public ParkingLot getParkingLotByParkingLotId(String parkingLotName) {
-        return parkingLotRepository.findById(parkingLotName).get();
+    public ParkingLot getParkingLotByParkingLotId(int parkingLotId) {
+        return parkingLotRepository.findById(parkingLotId).orElse(null);
     }
 
     public void updateParkingLotCapacityByParkingLotId(String parkingLotName, int capacity){
         parkingLotRepository.updateParkingLotCapacityByParkingLotId(parkingLotName,capacity);
     }
 
-    public ParkingLot updateParkingLot(String parkingLotName, int capacity){
-        ParkingLot parkingLot = parkingLotRepository.findById(parkingLotName).get();
+    public ParkingLot updateParkingLot(int parkingLotId, int capacity){
+        ParkingLot parkingLot = parkingLotRepository.findById(parkingLotId).orElse(null);
+        if(parkingLot == null)
+            return null;
         parkingLot.setCapacity(capacity);
         return parkingLotRepository.save(parkingLot);
     }
 
-    public int getValidCapacityByParkingLotId(String parkingLotName){
-        ParkingLot parkingLot = parkingLotRepository.findById(parkingLotName).get();
+    public int getValidCapacityByParkingLotId(int parkingLotId){
+        ParkingLot parkingLot = parkingLotRepository.findById(parkingLotId).orElse(null);
+        if(parkingLot == null)
+            return 0;
         int capacity = parkingLot.getCapacity();
-        return capacity - parkingLotOrderService.getOrdersCountParkingLotStatusTrue(parkingLotName);
+        return capacity - parkingLotOrderService.getOrdersCountParkingLotStatusTrue(parkingLotId);
     }
-    public int fetch(String name, String plateNumber){
-        return parkingLotOrderService.updataOrderStatusAndEndTime(plateNumber, name);
+    public int fetch(int parkingLotId, String plateNumber){
+        return parkingLotOrderService.updateOrderStatusAndEndTime(plateNumber, parkingLotId);
     }
 
-    public ParkingLotOrderDTO park(String parkingLotName, Car car){
-        return parkingLotOrderService.addOrder(parkingLotName,car);
+    public ParkingLotOrderDTO park(int parkingLotId, Car car){
+        return parkingLotOrderService.addOrder(parkingLotId,car);
     }
 }

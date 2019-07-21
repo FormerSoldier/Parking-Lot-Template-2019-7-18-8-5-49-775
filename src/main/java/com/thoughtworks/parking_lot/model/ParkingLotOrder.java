@@ -20,14 +20,14 @@ public class ParkingLotOrder {
     private String startTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String endTime;
-    private boolean status;
+    private int status;
 
 
 
     public ParkingLotOrder() {
     }
 
-    public ParkingLotOrder(ParkingLot parkingLot, Car car, String startTime, boolean status) {
+    public ParkingLotOrder(ParkingLot parkingLot, Car car, String startTime, int status) {
         this.parkingLot = parkingLot;
         this.car = car;
         this.startTime = startTime;
@@ -74,12 +74,11 @@ public class ParkingLotOrder {
         this.endTime = endTime;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
-
 }

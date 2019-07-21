@@ -11,6 +11,9 @@ import java.util.List;
 @Entity
 public class ParkingLot {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
     @Column(unique = true)
     private String name;
 
@@ -25,6 +28,14 @@ public class ParkingLot {
         this.name = name;
         this.capacity = capacity;
         this.position = position;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

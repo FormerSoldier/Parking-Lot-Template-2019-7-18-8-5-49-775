@@ -17,6 +17,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+
 public class Story1Test {
 
     @Autowired
@@ -25,9 +26,8 @@ public class Story1Test {
     // AC 1
     @Test
     public void should_return_parking_lot_when_call_add_parking_lot_given_parking_lot(){
-        ParkingLot parkingLot = new ParkingLot("1号停车场",200,"波兰街十三号");
+        ParkingLot parkingLot = new ParkingLot("3号停车场",200,"波兰街十三号");
         parkingLot = parkingLotService.saveParkingLot(parkingLot);
-
         Assertions.assertNotNull(parkingLot.getName());
     }
 
@@ -36,7 +36,7 @@ public class Story1Test {
         ParkingLot parkingLot = new ParkingLot("1号停车场",200,"波兰街十三号");
         parkingLot = parkingLotService.saveParkingLot(parkingLot);
 
-        parkingLotService.deleteParkingLotById(parkingLot.getName());
+        parkingLotService.deleteParkingLotById(parkingLot.getId());
         List<ParkingLot> parkingLotList = parkingLotService.listAllParkingLots();
         Assertions.assertEquals(parkingLotList.size(),0);
     }
@@ -54,7 +54,7 @@ public class Story1Test {
     @Test
     public void should_return_parking_lot_when_call_get_parking_lot_by_parking_lot_id_given_parking_lot_id(){
         ParkingLot result_parkingLot = parkingLotService.saveParkingLot(new ParkingLot("44号停车场",440,"波兰街44号"));
-        ParkingLot parkingLot = parkingLotService.getParkingLotByParkingLotId(result_parkingLot.getName());
+        ParkingLot parkingLot = parkingLotService.getParkingLotByParkingLotId(result_parkingLot.getId());
 
         Assertions.assertNotNull(parkingLot);
     }
@@ -66,7 +66,7 @@ public class Story1Test {
         int capacity = 400;
         parkingLotService.updateParkingLotCapacityByParkingLotId(result_parkingLot.getName(), capacity);
 
-        result_parkingLot = parkingLotService.getParkingLotByParkingLotId(result_parkingLot.getName());
+        result_parkingLot = parkingLotService.getParkingLotByParkingLotId(result_parkingLot.getId());
 
         int real_capacity = result_parkingLot.getCapacity();
         Assertions.assertEquals(capacity,real_capacity);
