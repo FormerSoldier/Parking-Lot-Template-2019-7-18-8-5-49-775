@@ -9,10 +9,10 @@ public class ParkingLotOrder {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private String parkingLotName;
+    private ParkingLot parkingLot;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private String plateNumber;
+    private Car car;
 
     private String startTime;
     private String endTime;
@@ -23,9 +23,9 @@ public class ParkingLotOrder {
     public ParkingLotOrder() {
     }
 
-    public ParkingLotOrder(String parkingLotName, String plateNumber, String startTime, boolean status) {
-        this.parkingLotName = parkingLotName;
-        this.plateNumber = plateNumber;
+    public ParkingLotOrder(ParkingLot parkingLot, Car car, String startTime, boolean status) {
+        this.parkingLot = parkingLot;
+        this.car = car;
         this.startTime = startTime;
         this.status = status;
     }
@@ -38,20 +38,20 @@ public class ParkingLotOrder {
         this.id = id;
     }
 
-    public String getParkingLotName() {
-        return parkingLotName;
+    public ParkingLot getParkingLot() {
+        return parkingLot;
     }
 
-    public void setParkingLotName(String parkingLotName) {
-        this.parkingLotName = parkingLotName;
+    public void setParkingLot(ParkingLot parkingLot) {
+        this.parkingLot = parkingLot;
     }
 
-    public String getPlateNumber() {
-        return plateNumber;
+    public Car getCar() {
+        return car;
     }
 
-    public void setPlateNumber(String plateNumber) {
-        this.plateNumber = plateNumber;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public String getStartTime() {

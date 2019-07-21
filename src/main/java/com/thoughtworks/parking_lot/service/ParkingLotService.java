@@ -18,7 +18,7 @@ public class ParkingLotService {
     ParkingLotOrderService parkingLotOrderService;
 
     public ParkingLot saveParkingLot(ParkingLot parkingLot){
-        return parkingLotRepository.save(parkingLot);
+        return parkingLotRepository.saveAndFlush(parkingLot);
     }
 
     public List<ParkingLot> listAllParkingLots(){

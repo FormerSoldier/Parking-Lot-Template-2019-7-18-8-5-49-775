@@ -1,5 +1,6 @@
 package com.thoughtworks.parking_lot.service;
 
+import com.thoughtworks.parking_lot.model.Car;
 import com.thoughtworks.parking_lot.model.ParkingLot;
 import com.thoughtworks.parking_lot.model.ParkingLotOrder;
 import com.thoughtworks.parking_lot.model.ParkingLotOrderDTO;
@@ -21,7 +22,7 @@ public class ParkingLotOrderService {
     ParkingLotOrderRepository parkingLotOrderRepository;
 
    public int getOrdersCountParkingLotStatusTrue(int parkingLotId){
-       return parkingLotOrderRepository.getTrueStatusoCuntByParkingLotId(parkingLotId);
+       return parkingLotOrderRepository.getTrueStatusCountByParkingLotId(parkingLotId);
    }
 
    public ParkingLotOrderDTO updateOrderByOrderId(int parkingLotId, String plateNumber){
@@ -39,7 +40,7 @@ public class ParkingLotOrderService {
        return parkingLotOrderDTO;
    }
 
-   public ParkingLotOrderDTO addOrder(int parkingLotId, String plateNumber){
+   public ParkingLotOrderDTO addOrder(int parkingLotId, Car car){
        ParkingLotOrderDTO parkingLotOrderDTO = new ParkingLotOrderDTO();
        int validCapacity = parkingLotService.getValidCapacityByParkingLotId(parkingLotId);
        if(validCapacity <= 0){
@@ -53,8 +54,8 @@ public class ParkingLotOrderService {
 
        ParkingLot parkingLot = parkingLotService.getParkingLotByParkingLotId(parkingLotId);
        ParkingLotOrder parkingLotOrder = new ParkingLotOrder();
-       parkingLotOrder.setParkingLotName(parkingLot.getName());
-       parkingLotOrder.setPlateNumber(plateNumber);
+       parkingLotOrder.setParkingLot(parkingLot);
+       parkingLotOrder.setCar(car);
        parkingLotOrder.setStartTime(startTime);
        parkingLotOrder.setStatus(true);
 

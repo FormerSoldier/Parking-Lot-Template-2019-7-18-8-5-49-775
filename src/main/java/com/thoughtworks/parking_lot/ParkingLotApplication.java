@@ -7,7 +7,8 @@ import org.springframework.context.annotation.ComponentScans;
 import org.springframework.stereotype.Component;
 
 
-@ComponentScan(basePackages = {"com.thoughtworks.parking_lot.service", "com.thoughtworks.parking_lot.controller","com.thoughtworks.parking_lot.model"})
+@ComponentScan(basePackages = {"com.thoughtworks.parking_lot.service",
+        "com.thoughtworks.parking_lot.controller"})
 @SpringBootApplication
 public class ParkingLotApplication {
 
