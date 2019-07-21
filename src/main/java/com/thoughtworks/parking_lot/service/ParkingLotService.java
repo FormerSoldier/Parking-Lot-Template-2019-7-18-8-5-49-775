@@ -1,11 +1,16 @@
 package com.thoughtworks.parking_lot.service;
 
+import com.thoughtworks.parking_lot.model.Car;
 import com.thoughtworks.parking_lot.model.ParkingLotOrder;
+import com.thoughtworks.parking_lot.model.ParkingLotOrderDTO;
+import com.thoughtworks.parking_lot.repository.ParkingLotOrderRepository;
 import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
 import com.thoughtworks.parking_lot.model.ParkingLot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -25,8 +30,8 @@ public class ParkingLotService {
         return parkingLotRepository.findAll();
     }
 
-    public void deleteParkingLotById(Integer id) {
-        parkingLotRepository.deleteById(id);
+    public void deleteParkingLotById(String parkingLotName) {
+        parkingLotRepository.deleteById(parkingLotName);
     }
 
 
@@ -34,24 +39,30 @@ public class ParkingLotService {
         return parkingLotRepository.getParkingLotsLimit(page * pageSize, pageSize);
     }
 
-    public ParkingLot getParkingLotByParkingLotId(Integer id) {
-        return parkingLotRepository.findById(id).get();
+    public ParkingLot getParkingLotByParkingLotId(String parkingLotName) {
+        return parkingLotRepository.findById(parkingLotName).get();
     }
 
-    public void updateParkingLotCapacityByParkingLotId(int parkingLotId, int capacity){
-        parkingLotRepository.updateParkingLotCapacityByParkingLotId(parkingLotId,capacity);
+    public void updateParkingLotCapacityByParkingLotId(String parkingLotName, int capacity){
+        parkingLotRepository.updateParkingLotCapacityByParkingLotId(parkingLotName,capacity);
     }
 
-    public ParkingLot updateParkingLot(int id, int capacity){
-        ParkingLot parkingLot = parkingLotRepository.findById(id).get();
+    public ParkingLot updateParkingLot(String parkingLotName, int capacity){
+        ParkingLot parkingLot = parkingLotRepository.findById(parkingLotName).get();
         parkingLot.setCapacity(capacity);
         return parkingLotRepository.save(parkingLot);
     }
 
-    public int getValidCapacityByParkingLotId(int parkingLotId){
-        ParkingLot parkingLot = parkingLotRepository.findById(parkingLotId).get();
+    public int getValidCapacityByParkingLotId(String parkingLotName){
+        ParkingLot parkingLot = parkingLotRepository.findById(parkingLotName).get();
         int capacity = parkingLot.getCapacity();
-        return capacity - parkingLotOrderService.getOrdersCountParkingLotStatusTrue(parkingLotId);
+        return capacity - parkingLotOrderService.getOrdersCountParkingLotStatusTrue(parkingLotName);
+    }
+    public int fetch(String name, String plateNumber){
+        return parkingLotOrderService.updataOrderStatusAndEndTime(plateNumber, name);
     }
 
+    public ParkingLotOrderDTO park(String parkingLotName, Car car){
+        return parkingLotOrderService.addOrder(parkingLotName,car);
+    }
 }

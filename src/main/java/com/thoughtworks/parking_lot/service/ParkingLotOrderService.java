@@ -21,8 +21,8 @@ public class ParkingLotOrderService {
     @Autowired
     ParkingLotOrderRepository parkingLotOrderRepository;
 
-   public int getOrdersCountParkingLotStatusTrue(int parkingLotId){
-       return parkingLotOrderRepository.getTrueStatusCountByParkingLotId(parkingLotId);
+   public int getOrdersCountParkingLotStatusTrue(String parkingLotName){
+       return parkingLotOrderRepository.getTrueStatusCountByParkingLotId(parkingLotName);
    }
 
    public ParkingLotOrderDTO updateOrderByOrderId(int parkingLotId, String plateNumber){
@@ -40,11 +40,11 @@ public class ParkingLotOrderService {
        return parkingLotOrderDTO;
    }
 
-   public ParkingLotOrderDTO addOrder(int parkingLotId, Car car){
+   public ParkingLotOrderDTO addOrder(String parkingLotName, Car car){
        ParkingLotOrderDTO parkingLotOrderDTO = new ParkingLotOrderDTO();
-       int validCapacity = parkingLotService.getValidCapacityByParkingLotId(parkingLotId);
+       int validCapacity = parkingLotService.getValidCapacityByParkingLotId(parkingLotName);
        if(validCapacity <= 0){
-           String message = "停车场已满";
+           String message = "停车场已经满了";
            parkingLotOrderDTO.setMessage(message);
            return parkingLotOrderDTO;
        }
@@ -52,7 +52,7 @@ public class ParkingLotOrderService {
        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
        String startTime = simpleDateFormat.format(Calendar.getInstance().getTime());
 
-       ParkingLot parkingLot = parkingLotService.getParkingLotByParkingLotId(parkingLotId);
+       ParkingLot parkingLot = parkingLotService.getParkingLotByParkingLotId(parkingLotName);
        ParkingLotOrder parkingLotOrder = new ParkingLotOrder();
        parkingLotOrder.setParkingLot(parkingLot);
        parkingLotOrder.setCar(car);
@@ -63,7 +63,12 @@ public class ParkingLotOrderService {
        parkingLotOrderDTO.setParkingLotOrder(parkingLotOrder);
        return parkingLotOrderDTO;
 
+   }
+   public int updataOrderStatusAndEndTime(String plateNumber, String parkingLotName){
+       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       String endTime = simpleDateFormat.format(Calendar.getInstance().getTime());
 
+       return parkingLotOrderRepository.updateParkingLotStatusAndAndEndTimeAnd(endTime,plateNumber,parkingLotName);
 
    }
 }

@@ -11,9 +11,6 @@ import java.util.List;
 @Entity
 public class ParkingLot {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
     @Column(unique = true)
     private String name;
 
@@ -54,7 +51,4 @@ public class ParkingLot {
         this.position = position;
     }
 
-    public Integer getId() {
-        return id;
-    }
 }
