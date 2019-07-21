@@ -40,5 +40,9 @@ public class ParkingLotController {
         parkingLotService.deleteParkingLotById(parkingLotId);
     }
 
+    @PutMapping("/{id}/capacity/{capacity}")
+    public ParkingLot updateParkingLotCapacity(@PathVariable Integer id,@PathVariable Integer capacity){
+        return parkingLotService.updateParkingLot(id, capacity);
+    }
 
 }

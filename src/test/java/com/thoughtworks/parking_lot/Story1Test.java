@@ -59,7 +59,7 @@ public class Story1Test {
         Assertions.assertNotNull(parkingLot);
     }
 
-    @Test
+   /* @Test
     public void should_return_parking_lot_call_update_parking_lot_capacity_by_parking_lot_id_given_parking_lot_id(){
         ParkingLot result_parkingLot = parkingLotService.saveParkingLot(new ParkingLot("45号停车场",440,"波兰街44号"));
 
@@ -69,7 +69,19 @@ public class Story1Test {
         result_parkingLot = parkingLotService.getParkingLotByParkingLotId(result_parkingLot.getId());
 
         int real_capacity = result_parkingLot.getCapacity();
-        Assertions.assertEquals(real_capacity,capacity);
-    }
+        Assertions.assertEquals(capacity,real_capacity);
+    }*/
 
+   @Test
+    public void should_return_parking_lot_call_update_parking_given_parking_lot(){
+        ParkingLot result_parkingLot = parkingLotService.saveParkingLot(new ParkingLot("45号停车场",440,"波兰街44号"));
+
+        int capacity = 400;
+        result_parkingLot.setCapacity(capacity);
+        parkingLotService.updateParkingLot(result_parkingLot.getId(),capacity);
+        result_parkingLot = parkingLotService.getParkingLotByParkingLotId(result_parkingLot.getId());
+
+        int real_capacity = result_parkingLot.getCapacity();
+        Assertions.assertEquals(capacity,real_capacity);
+    }
 }

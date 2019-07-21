@@ -1,10 +1,12 @@
 package com.thoughtworks.parking_lot.model;
 
+import org.hibernate.annotations.Fetch;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class ParkingLot {

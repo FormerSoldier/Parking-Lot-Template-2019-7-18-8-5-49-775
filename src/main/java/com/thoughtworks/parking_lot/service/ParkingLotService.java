@@ -1,5 +1,6 @@
 package com.thoughtworks.parking_lot.service;
 
+import com.thoughtworks.parking_lot.model.ParkingLotOrder;
 import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
 import com.thoughtworks.parking_lot.model.ParkingLot;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ public class ParkingLotService {
 
     @Autowired
     ParkingLotRepository parkingLotRepository;
+
+    @Autowired
+    ParkingLotOrderService parkingLotOrderService;
 
     public ParkingLot saveParkingLot(ParkingLot parkingLot){
         return parkingLotRepository.save(parkingLot);
@@ -37,4 +41,17 @@ public class ParkingLotService {
     public void updateParkingLotCapacityByParkingLotId(int parkingLotId, int capacity){
         parkingLotRepository.updateParkingLotCapacityByParkingLotId(parkingLotId,capacity);
     }
+
+    public ParkingLot updateParkingLot(int id, int capacity){
+        ParkingLot parkingLot = parkingLotRepository.findById(id).get();
+        parkingLot.setCapacity(capacity);
+        return parkingLotRepository.save(parkingLot);
+    }
+
+    public int getValidCapacityByParkingLotId(int parkingLotId){
+        ParkingLot parkingLot = parkingLotRepository.findById(parkingLotId).get();
+        int capacity = parkingLot.getCapacity();
+        return capacity - parkingLotOrderService.getOrdersCountParkingLotStatusTrue(parkingLotId);
+    }
+
 }
