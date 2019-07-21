@@ -9,7 +9,15 @@ buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+        classpath 'com.h2database:h2:1.4.197'
     }
+}
+plugins {
+    id "org.flywaydb.flyway" version "5.2.4"
+}
+flyway {
+    url = 'jdbc:h2:file:./target/foobar'
+    user = 'sa'
 }
 
 apply plugin: 'java'

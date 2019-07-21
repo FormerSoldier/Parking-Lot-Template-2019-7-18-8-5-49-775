@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS parking_lot;
+CREATE TABLE parking_lot(
+  name VARCHAR(200) NOT NULL PRIMARY KEY,
+  capacity INT DEFAULT 0,
+  position VARCHAR(200) DEFAULT ''
+);

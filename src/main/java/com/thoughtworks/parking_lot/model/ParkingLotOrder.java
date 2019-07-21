@@ -1,5 +1,7 @@
 package com.thoughtworks.parking_lot.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +16,9 @@ public class ParkingLotOrder {
     @OneToOne(cascade = CascadeType.ALL)
     private Car car;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String endTime;
     private boolean status;
 
